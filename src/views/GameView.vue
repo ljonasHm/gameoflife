@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import Game from '@/components/game/Game.vue';
+import GameBase from '../components/game/GameBase.vue';
 import { onMounted } from 'vue';
 
 onMounted(() => {
@@ -14,7 +14,7 @@ onMounted(() => {
     <div class="view-container">
         <h1 class="view-title">Game</h1>
         <div class="view-content">
-            <Game />
+            <GameBase />
         </div>
     </div>
 </template>

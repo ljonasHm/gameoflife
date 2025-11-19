@@ -41,3 +41,36 @@ a,
 .view-content {
   flex-grow: 1;
 }
+
+.game {
+  &__field {
+    padding: 20px;
+  }
+
+  &__row {
+    box-sizing: border-box;
+    display: flex;
+    border-top: 1px solid grey;
+
+    &:last-child {
+      border-bottom: 1px solid grey;
+    }
+  }
+
+  &__cell {
+    box-sizing: border-box;
+    height: 8px;
+    width: 8px;
+    border-left: 1px solid grey;
+
+    &:last-child {
+      border-right: 1px solid grey;
+    }
+  }
+
+  &__button {
+    padding: 2px 8px;
+    border-radius: 12px;
+    border: 2px solid black;
+  }
+}
