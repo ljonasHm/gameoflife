@@ -17,16 +17,16 @@ export class Game {
         this._resetBoard();
     }
 
-    get filledCellColor(): string {
-        return this._filledCellColor;
-    }
-
     get height(): number {
         return this._height;
     }
 
     get width(): number {
         return this._width;
+    }
+
+    get board(): CellValue[][] {
+        return this._board;
     }
 
     get started(): boolean {
@@ -37,12 +37,15 @@ export class Game {
         return this._paused;
     }
 
+    get filledCellColor(): string {
+        return this._filledCellColor;
+    }
+
     get randomFillPercentage(): number {
         return this._randomFillPercentage;
     }
 
     isCellFilled(x: number, y: number): boolean {
-        console.log(`trying to access cell at (x: ${x}, y: ${y}):`, this._board[x][y]);
         return this._board[x][y] === 1;
     }
 
@@ -117,6 +120,12 @@ export class Game {
                 filledCells++;
             }
         }
+    }
+
+    setBoard(newBoard: CellValue[][]): void {
+        console.log('old board', this._board);
+        console.log('new board', newBoard);
+        this._board = newBoard;
     }
 
     start(): void {
