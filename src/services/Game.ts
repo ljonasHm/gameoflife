@@ -46,15 +46,15 @@ export class Game {
     }
 
     isCellFilled(x: number, y: number): boolean {
-        return this._board[x][y] === 1;
+        return this._board[y][x] === 1;
     }
 
     _fill(x: number, y: number): void {
-        this._board[x][y] = 1;
+        this._board[y][x] = 1;
     }
 
     _clear(x: number, y: number): void {
-        this._board[x][y] = 0;
+        this._board[y][x] = 0;
     }
 
     _fillOrClear(x: number, y: number): void {
@@ -68,13 +68,14 @@ export class Game {
     _prepareNextGeneration(): CellValue[][] {
         const newBoard: CellValue[][] = Array.from({ length: this._height }, () => Array.from({ length: this._width }, () => 0 as CellValue));
 
-        for (let x = 0; x < this._height; x++) {
-            for (let y = 0; y < this._width; y++) {
+        for (let y = 0; y < this._height; y++) {
+            for (let x = 0; x < this._width; x++) {
                 const aliveNeighbors = this._countAliveNeighbors(x, y);
-                if (this._board[x][y] === 1) {
-                    newBoard[x][y] = (aliveNeighbors === 2 || aliveNeighbors === 3) ? 1 : 0;
+
+                if (this._board[y][x] === 1) {
+                    newBoard[y][x] = (aliveNeighbors === 2 || aliveNeighbors === 3) ? 1 : 0;
                 } else {
-                    newBoard[x][y] = (aliveNeighbors === 3) ? 1 : 0;
+                    newBoard[y][x] = (aliveNeighbors === 3) ? 1 : 0;
                 }
             }
         }
@@ -84,13 +85,13 @@ export class Game {
 
     _countAliveNeighbors(x: number, y: number): number {
         let count = 0;
-        for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-                if (dx === 0 && dy === 0) continue; // Skip the cell itself
-                const nx = x + dx;
+        for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+                if (dy === 0 && dx === 0) continue; // Skip the cell itself
                 const ny = y + dy;
-                if (nx >= 0 && nx < this._height && ny >= 0 && ny < this._width) {
-                    count += this._board[nx][ny] === 1 ? 1 : 0;
+                const nx = x + dx;
+                if (ny >= 0 && ny < this._height && nx >= 0 && nx < this._width) {
+                    count += this._board[ny][nx] === 1 ? 1 : 0;
                 }
             }
         }
@@ -123,8 +124,6 @@ export class Game {
     }
 
     setBoard(newBoard: CellValue[][]): void {
-        console.log('old board', this._board);
-        console.log('new board', newBoard);
         this._board = newBoard;
     }
 
