@@ -168,4 +168,10 @@ export class Game {
         this._paused = true;
         this._resetBoard();
     }
+
+    setSize(height: number, width: number): void {
+        this._height = height;
+        this._width = width;
+        this._resetBoard();
+    }
 }

@@ -1,0 +1,135 @@
+@use "variables" as *;
+
+@import 'tailwindcss';
+
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  font-weight: normal;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  flex-direction: column;;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+.view-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+.view-content {
+  flex-grow: 1;
+}
+
+.common-button {
+  padding: 2px 8px;
+  border-radius: 12px;
+  border: 2px solid var(--Black);
+  cursor: pointer;
+  &:hover {
+    background: var(--Grey);
+  }
+}
+
+.game {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__field {
+    padding: 20px;
+  }
+
+  &__row {
+    box-sizing: border-box;
+    display: flex;
+    border-top: 1px solid var(--Grey);
+
+    &:last-child {
+      border-bottom: 1px solid var(--Grey);
+    }
+  }
+
+  &__cell {
+    box-sizing: border-box;
+    height: 8px;
+    width: 8px;
+    border-left: 1px solid var(--Grey);
+
+    &:last-child {
+      border-right: 1px solid var(--Grey);
+    }
+
+    &:hover {
+      background: var(--Grey);
+    }
+  }
+}
+
+.pop-up {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--Blackout);
+  display: flex;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+
+  &__overlay {
+    flex-grow: 1;
+  }
+
+  &__content {
+    width: 360px;
+    border-radius: 16px 0 0 16px;
+    background: var(--White);
+    padding: 16px;
+  }
+
+  &__title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+}
+
+.input {
+
+  &__title {
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    border: 2px solid var(--Black);
+    border-radius: 8px;
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+}

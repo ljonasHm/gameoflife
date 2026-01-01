@@ -1,18 +1,16 @@
 <script setup lang="ts">
 
-import GameBase from '../components/game/GameBase.vue';
-import { onMounted } from 'vue';
-
-onMounted(() => {
-    // Initialize the game here
-    console.log('GameView mounted');
-});
+import GameSettings from '@/components/game/GameSettings.vue';
+import GameBase from '@/components/game/GameBase.vue';
 
 </script>
 
 <template>
     <div class="view-container">
         <h1 class="view-title">Game</h1>
+        <div class="mt-4 flex gap-2 items-center">
+            <GameSettings />
+        </div>
         <div class="view-content">
             <GameBase />
         </div>
