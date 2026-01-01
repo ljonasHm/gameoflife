@@ -1,4 +1,9 @@
 type CellValue = 0 | 1 | 2;
+interface gameProps {
+    height: number,
+    width: number,
+    speed: number
+}
 
 export class Game {
 
@@ -7,6 +12,7 @@ export class Game {
 
     _height: number;
     _width: number;
+    _speed: number = 1;
     _randomFillPercentage: number = 50;
     _board: CellValue[][] = [[]];
     _filledCellColor: string = '#000000';
@@ -23,6 +29,10 @@ export class Game {
 
     get width(): number {
         return this._width;
+    }
+
+    get speed(): number {
+        return this._speed;
     }
 
     get board(): CellValue[][] {
@@ -142,7 +152,7 @@ export class Game {
     _playNextGeneration(): void {
         if (this._started && !this._paused) {
             this.nextGeneration();
-            setTimeout(() => this._playNextGeneration(), 1000);
+            setTimeout(() => this._playNextGeneration(), this._speed * 1000);
         }
     }
 
@@ -169,9 +179,10 @@ export class Game {
         this._resetBoard();
     }
 
-    setSize(height: number, width: number): void {
-        this._height = height;
-        this._width = width;
+    setProps(props: gameProps): void {
+        this._height = props.height;
+        this._width = props.width;
+        this._speed = props.speed;
         this._resetBoard();
     }
 }
