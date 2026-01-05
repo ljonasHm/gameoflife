@@ -4,16 +4,24 @@ interface gameProps {
     width: number,
     speed: number
 }
+interface preparedGenerationResult {
+    newBoard: CellValue[][],
+    aliveCellsCount: number
+}
 
 export class Game {
 
     _started: boolean = false;
     _paused: boolean = true;
 
+    _iteration: number = 0;
+    _aliveCellsCount: number = 0;
+
     _height: number;
     _width: number;
     _speed: number = 1;
     _randomFillPercentage: number = 50;
+
     _board: CellValue[][] = [[]];
     _filledCellColor: string = '#000000';
 
@@ -55,6 +63,14 @@ export class Game {
         return this._randomFillPercentage;
     }
 
+    get iteration(): number {
+        return this._iteration;
+    }
+
+    get aliveCellsCount(): number {
+        return this._aliveCellsCount;
+    }
+
     isCellFilled(x: number, y: number): boolean {
         return this._board[y][x] === 1;
     }
@@ -75,22 +91,28 @@ export class Game {
         }
     }
 
-    _prepareNextGeneration(): CellValue[][] {
+    _prepareNextGeneration(): preparedGenerationResult {
         const newBoard: CellValue[][] = Array.from({ length: this._height }, () => Array.from({ length: this._width }, () => 0 as CellValue));
+        let aliveCellsCount = 0;
 
         for (let y = 0; y < this._height; y++) {
             for (let x = 0; x < this._width; x++) {
                 const aliveNeighbors = this._countAliveNeighbors(x, y);
 
-                if (this._board[y][x] === 1) {
-                    newBoard[y][x] = (aliveNeighbors === 2 || aliveNeighbors === 3) ? 1 : 0;
-                } else {
-                    newBoard[y][x] = (aliveNeighbors === 3) ? 1 : 0;
+                if (this._board[y][x] === 1 && (aliveNeighbors === 2 || aliveNeighbors === 3)) {
+                    aliveCellsCount++;
+                    newBoard[y][x] = 1;
+                } else if (this._board[y][x] === 0 && aliveNeighbors === 3) {
+                    aliveCellsCount++;
+                    newBoard[y][x] = 1;
                 }
             }
         }
 
-        return newBoard;
+        return {
+            newBoard,
+            aliveCellsCount
+        };
     }
 
     _countAliveNeighbors(x: number, y: number): number {
@@ -145,7 +167,10 @@ export class Game {
 
     nextGeneration(): void {
         if (this._started) {
-            this._board = this._prepareNextGeneration();
+            const nextGeneration = this._prepareNextGeneration();
+            this._board = nextGeneration.newBoard;
+            this._aliveCellsCount = nextGeneration.aliveCellsCount;
+            this._iteration++;
         }
     }
 

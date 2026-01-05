@@ -58,6 +58,10 @@ watch(() => [game.value.height, game.value.width], () => {
             </div>
         </div>
         <div class="mt-3 flex justify-center gap-2">
+            <div>Iteration: {{ game.iteration }}</div>
+            <div>Alive cells: {{ game.aliveCellsCount }}</div>
+        </div>
+        <div class="mt-3 flex justify-center gap-2">
             <template v-if="!game.started">
                 <button @click="fillRandomly" class="common-button">Fill randomly {{ game.randomFillPercentage }}%</button>
                 <button @click="start" class="common-button">Start</button>
