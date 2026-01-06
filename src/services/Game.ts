@@ -146,8 +146,8 @@ export class Game {
         this._resetBoard();
 
         while (filledCells < cellsToFill) {
-            const x = Math.floor(Math.random() * this._height);
-            const y = Math.floor(Math.random() * this._width);
+            const y = Math.floor(Math.random() * this._height);
+            const x = Math.floor(Math.random() * this._width);
             if (!this.isCellFilled(x, y)) {
                 this._fill(x, y);
                 filledCells++;
