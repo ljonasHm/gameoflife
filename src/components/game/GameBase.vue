@@ -48,13 +48,17 @@ watch(() => [game.value.height, game.value.width], () => {
     reset();
 })
 
+const onCellClick = (x, y) => {
+    cells.value[y][x].value = Number(game.value.cellClick(x, y));
+}
+
 </script> 
 
 <template>
     <div class="game">
         <div class="game__field">
             <div v-for="(row, y) in cells" :key="y" class="game__row">
-                <GameCell v-for="(cell, x) in row" @click="cell.value = (cell.value === 0) ? 1 : 0" :filled="!!cell.value" :filled-color="game.filledCellColor" :key="x" />
+                <GameCell v-for="(cell, x) in row" @click="onCellClick(x, y)" :filled="!!cell.value" :filled-color="game.filledCellColor" :key="x" />
             </div>
         </div>
         <div class="mt-3 flex justify-center gap-2">

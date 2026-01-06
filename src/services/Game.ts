@@ -83,11 +83,15 @@ export class Game {
         this._board[y][x] = 0;
     }
 
-    _fillOrClear(x: number, y: number): void {
+    _fillOrClear(x: number, y: number): boolean {
         if (this.isCellFilled(x, y)) {
             this._clear(x, y);
+            this._aliveCellsCount--;
+            return false;
         } else {
             this._fill(x, y);
+            this._aliveCellsCount++;
+            return true;
         }
     }
 
@@ -130,29 +134,28 @@ export class Game {
         return count;
     }
 
-    cellClick(x: number, y: number): void {
+    cellClick(x: number, y: number): boolean {
         if (this._started) {
-            return;
+            return false;
         }
 
-        this._fillOrClear(x, y);
+        return this._fillOrClear(x, y);
     }
 
     fillRandomly(percentage: number): void {
-        const totalCells = this._height * this._width;
-        const cellsToFill = Math.floor((percentage / 100) * totalCells);
         let filledCells = 0;
-
         this._resetBoard();
 
-        while (filledCells < cellsToFill) {
-            const y = Math.floor(Math.random() * this._height);
-            const x = Math.floor(Math.random() * this._width);
-            if (!this.isCellFilled(x, y)) {
-                this._fill(x, y);
-                filledCells++;
+        for (let y = 0; y < this._height; y++) {
+            for (let x = 0; x < this._width; x++) {
+                if (percentage >= Math.random() * 100) {
+                    this._fill(x, y);
+                    filledCells++;
+                }
             }
         }
+
+        this._aliveCellsCount = filledCells;
     }
 
     setBoard(newBoard: CellValue[][]): void {
@@ -196,6 +199,8 @@ export class Game {
 
     _resetBoard(): void {
         this._board = Array.from({ length: this._height }, () => Array.from({ length: this._width }, () => 0 as CellValue));
+        this._aliveCellsCount = 0;
+        this._iteration = 0;
     }
 
     reset(): void {
