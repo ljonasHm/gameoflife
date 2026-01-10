@@ -3,6 +3,7 @@
 import UPopUp from '@/components/ui/UPopUp.vue';
 import {ref} from "vue";
 import { useGameStore } from '@/stores/game';
+import UInput from '@/components/ui/UInput.vue';
 
 const gameStore = useGameStore();
 const game = ref(gameStore.game);
@@ -29,14 +30,8 @@ const confirm = () => {
             Settings
         </button>
         <UPopUp v-model="show" :title="'Settings'">
-            <div class="input">
-                <div class="input__title">Height</div>
-                <input class="input__input" v-model="height" />
-            </div>
-            <div class="input mt-3">
-                <div class="input__title">Width</div>
-                <input class="input__input" v-model="width" />
-            </div>
+            <UInput v-model="height" title="Height" type="number" />
+            <UInput v-model="width" title="Width" type="number" />
             <div class="input mt-3">
                 <div class="input__title">Speed</div>
                 <div class="flex gap-2">
