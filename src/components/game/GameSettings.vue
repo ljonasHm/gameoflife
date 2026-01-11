@@ -30,8 +30,8 @@ const confirm = () => {
             Settings
         </button>
         <UPopUp v-model="show" :title="'Settings'">
-            <UInput v-model="height" title="Height" type="number" />
-            <UInput v-model="width" title="Width" type="number" />
+            <UInput v-model="height" title="Height" type="number" :disabled="game.started" />
+            <UInput v-model="width" title="Width" type="number" :disabled="game.started" />
             <div class="input mt-3">
                 <div class="input__title">Speed</div>
                 <div class="flex gap-2">

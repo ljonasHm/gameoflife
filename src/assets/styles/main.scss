@@ -132,4 +132,10 @@ a,
     font-size: 16px;
     padding: 4px 8px;
   }
+
+  &--disabled {
+    .input__input {
+      opacity: 0.5;
+    }
+  }
 }

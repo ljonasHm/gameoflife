@@ -210,9 +210,14 @@ export class Game {
     }
 
     setProps(props: gameProps): void {
-        this._height = props.height;
-        this._width = props.width;
-        this._speed = props.speed;
-        this._resetBoard();
+
+        if (this._started) {
+            this._speed = props.speed;
+        } else {
+            this._height = props.height;
+            this._width = props.width;
+            this._speed = props.speed;
+            this._resetBoard();
+        }
     }
 }
