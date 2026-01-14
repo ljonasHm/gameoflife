@@ -43,6 +43,16 @@ const reset = () => {
     game.value.reset();
 }
 
+const clear = () => {
+    stopBoardWatcher();
+    cells.value.forEach((row) => {
+        row.forEach((cell) => {
+            cell.value = 0;
+        })
+    })
+    game.value.resetBoard();
+}
+
 watch(() => [game.value.height, game.value.width], () => {
     cells.value = Array.from({ length: game.value.height }, () => Array.from({ length: game.value.width }, () => ref(0)));
     reset();
@@ -58,7 +68,7 @@ const onCellClick = (x, y) => {
     <div class="game">
         <div class="game__field">
             <div v-for="(row, y) in cells" :key="y" class="game__row">
-                <GameCell v-for="(cell, x) in row" @click="onCellClick(x, y)" :filled="!!cell.value" :filled-color="game.filledCellColor" :key="x" />
+                <GameCell v-for="(cell, x) in row" @click="onCellClick(x, y)" :filled="!!cell?.value" :filled-color="game.filledCellColor" :key="x" />
             </div>
         </div>
         <div class="mt-3 flex justify-center gap-2">
@@ -69,6 +79,7 @@ const onCellClick = (x, y) => {
             <template v-if="!game.started">
                 <button @click="fillRandomly" class="common-button">Fill randomly {{ game.randomFillPercentage }}%</button>
                 <button @click="start" class="common-button">Start</button>
+                <button @click="clear" class="common-button">Clear</button>
             </template>
             <template v-else-if="game.paused">
                 <button @click="game.play()" class="common-button">Play ▶</button>
