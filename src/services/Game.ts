@@ -23,12 +23,13 @@ export class Game {
     _randomFillPercentage: number = 50;
 
     _board: CellValue[][] = [[]];
+    _savedBoard: CellValue[][] = [[]];
     _filledCellColor: string = '#000000';
 
     constructor(height: number, width: number) {
         this._height = height;
         this._width = width;
-        this._resetBoard();
+        this.resetBoard();
     }
 
     get height(): number {
@@ -144,7 +145,7 @@ export class Game {
 
     fillRandomly(percentage: number): void {
         let filledCells = 0;
-        this._resetBoard();
+        this.resetBoard();
 
         for (let y = 0; y < this._height; y++) {
             for (let x = 0; x < this._width; x++) {
@@ -164,6 +165,7 @@ export class Game {
 
     start(): void {
         if (!this._started) {
+            this._savedBoard = this._board;
             this._started = true;
         }
     }
@@ -197,7 +199,7 @@ export class Game {
         }
     }
 
-    _resetBoard(): void {
+    resetBoard(): void {
         this._board = Array.from({ length: this._height }, () => Array.from({ length: this._width }, () => 0 as CellValue));
         this._aliveCellsCount = 0;
         this._iteration = 0;
@@ -206,7 +208,7 @@ export class Game {
     reset(): void {
         this._started = false;
         this._paused = true;
-        this._resetBoard();
+        this._board = this._savedBoard;
     }
 
     setProps(props: gameProps): void {
@@ -217,7 +219,7 @@ export class Game {
             this._height = props.height;
             this._width = props.width;
             this._speed = props.speed;
-            this._resetBoard();
+            this.resetBoard();
         }
     }
 }
