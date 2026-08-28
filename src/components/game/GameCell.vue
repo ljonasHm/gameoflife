@@ -24,7 +24,7 @@ const props = defineProps({
     <div
         class="game__cell"
         :style="{
-            background: filled && !specialClass ? filledColor : '',
+            '--cell-background': filled && !specialClass ? filledColor : '',
             '--cell-hover': hoverColor || undefined
         }"
         :class="specialClass"

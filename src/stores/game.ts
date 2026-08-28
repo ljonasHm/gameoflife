@@ -7,7 +7,7 @@ export const useGameStore = defineStore('game', () => {
     const isGameInited = ref<boolean>(false);
 
     const initGame = (multiplay: boolean) => {
-        game.value = new Game(50, 50, multiplay);
+        game.value = new Game(70, 120, multiplay);
         isGameInited.value = true;
     }
 
