@@ -3,4 +3,26 @@
     --Black: #000000;
     --Grey: #808080;
     --Blackout: #64646480;
+    --Neutral: linear-gradient(
+        45deg,
+        transparent 10%;
+        #000000 10%;
+        #000000 20%;
+        transparent 20%;
+        transparent 30%;
+        #000000 30%;
+        #000000 40%;
+        transparent 40%;
+        transparent 50%;
+        #000000 50%;
+        #000000 60%;
+        transparent 60%;
+        transparent 70%;
+        #000000 70%;
+        #000000 80%;
+        transparent 80%;
+        transparent 90%;
+        #000000 90%;
+        #000000 100%;
+    )
 }

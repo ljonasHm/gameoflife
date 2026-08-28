@@ -5,12 +5,28 @@ const props = defineProps({
         type: Boolean
     },
     filledColor: {
-        type: String
+        type: String,
+        default: ''
+    },
+    hoverColor: {
+        type: String,
+        default: ''
+    },
+    specialClass: {
+        type: String,
+        default: ''
     }
 });
 
 </script>
 
 <template>
-    <div class="game__cell" :style="{background: props.filled ? props.filledColor : ''}"></div>
+    <div
+        class="game__cell"
+        :style="{
+            '--cell-background': filled && !specialClass ? filledColor : '',
+            '--cell-hover': hoverColor || undefined
+        }"
+        :class="specialClass"
+    ></div>
 </template>

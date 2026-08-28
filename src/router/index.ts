@@ -14,6 +14,14 @@ const router = createRouter({
       path: '/game',
       name: 'game',
       component: GameView
+    },
+    {
+      path: '/game/local',
+      name: 'game-local',
+      component: GameView,
+      props: {
+        multiplay: true
+      }
     }
   ]
 })

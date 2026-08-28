@@ -80,13 +80,18 @@ a,
     height: 8px;
     width: 8px;
     border-left: 1px solid var(--Grey);
+    background: var(--cell-background, var(--White));
 
     &:last-child {
       border-right: 1px solid var(--Grey);
     }
 
     &:hover {
-      background: var(--Grey);
+      background: var(--cell-hover);
+    }
+
+    &--neutral {
+      background-image: var(--Neutral);
     }
   }
 }
