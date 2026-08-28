@@ -112,19 +112,24 @@ const getCellColor = (value) => {
 }
 
 const getCellHoverColor = (value) => {
+
+    if (game.value.started) {
+        return '';
+    }
+
     if (value === 4) {
         return '';
     }
 
-    if (value === 1 || value === 0) {
+    if ((value === 1 || value === 0) && (!game.value.multiplay || game.value.activeUserIndex === 0)) {
         return game.value.hoverCellColor;
     }
 
-    if (value === 3 || value === 2) {
+    if ((value === 3 || value === 2) && (!game.value.multiplay || game.value.activeUserIndex === 1)) {
         return game.value.hoverCellColor2;
     }
 
-    return game.value.hoverCellColor;
+    return '';
 }
 
 const getCellSpecialClass = (value) => {
