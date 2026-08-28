@@ -3,7 +3,13 @@ import { defineStore } from "pinia"
 import { Game } from '@/services/Game';
 
 export const useGameStore = defineStore('game', () => {
-    const game = ref(new Game(40, 40));
+    const game = ref<Game | null>(null);
+    const isGameInited = ref<boolean>(false);
 
-    return { game };
+    const initGame = (multiplay: boolean) => {
+        game.value = new Game(50, 50, multiplay);
+        isGameInited.value = true;
+    }
+
+    return { game, initGame, isGameInited };
 })

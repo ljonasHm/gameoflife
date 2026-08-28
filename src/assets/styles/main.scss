@@ -86,7 +86,11 @@ a,
     }
 
     &:hover {
-      background: var(--Grey);
+      background: var(--cell-hover, var(--Grey));
+    }
+
+    &--neutral {
+      background-image: var(--Neutral);
     }
   }
 }
